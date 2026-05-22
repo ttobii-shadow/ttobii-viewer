@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>도쿄 여행 플랜 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Unbounded:wght@300;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --red: #E8334A;
+    --navy: #0D1B2A;
+    --navy-mid: #1A2E42;
+    --cream: #FDF6EC;
+    --gold: #D4A853;
+    --teal: #2CBFB1;
+    --green: #22A96A;
+    --text: #1A1A1A;
+    --muted: #888;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy);
+    color: white;
+    padding: 48px 32px 40px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header::before {
+    content: '東京';
+    position: absolute;
+    right: -20px;
+    top: -10px;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 160px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.04);
+    line-height: 1;
+    pointer-events: none;
+  }
+  .header-badge {
+    display: inline-block;
+    background: var(--red);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .header h1 {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(28px, 6vw, 52px);
+    font-weight: 900;
+    line-height: 1.05;
+    letter-spacing: -2px;
+    margin-bottom: 8px;
+  }
+  .header h1 span { color: var(--red); }
+  .header-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.5);
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+  .header-meta {
+    margin-top: 28px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 6px 16px;
+    font-size: 12px;
+    color: rgba(255,255,255,0.7);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  /* TABS */
+  .tabs {
+    background: var(--navy-mid);
+    display: flex;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 2px solid rgba(255,255,255,0.06);
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    flex-shrink: 0;
+    padding: 16px 24px;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.4);
+    cursor: pointer;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    margin-bottom: -2px;
+  }
+  .tab-btn:hover { color: rgba(255,255,255,0.75); }
+  .tab-btn.active { color: white; border-bottom-color: var(--red); }
+  .tab-btn .day-num {
+    font-family: 'Unbounded', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    display: block;
+    line-height: 1.2;
+  }
+  .tab-btn .day-label { font-size: 11px; opacity: 0.7; }
+
+  /* MAIN */
+  .main { max-width: 800px; margin: 0 auto; padding: 32px 20px 64px; }
+
+  .day-panel { display: none; }
+  .day-panel.active { display: block; animation: fadeUp 0.35s ease; }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* DAY HEADER */
+  .day-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .day-num-big {
+    font-family: 'Unbounded', sans-serif;
+    font-size: 64px;
+    font-weight: 900;
+    line-height: 0.9;
+    color: var(--navy);
+    opacity: 0.08;
+    flex-shrink: 0;
+  }
+  .day-title-block { flex: 1; }
+  .day-date {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .day-title {
+    font-family: 'Unbounded', sans-serif;
+    font-size: clamp(18px, 4vw, 26px);
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+  }
+  .day-hotel {
+    margin-top: 8px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--muted);
+    background: rgba(0,0,0,0.05);
+    padding: 4px 12px;
+    border-radius: 100px;
+  }
+
+  /* STOP TIMELINE */
+  .stop-list { display: flex; flex-direction: column; }
+
+  .stop-item { display: flex; gap: 0; }
+
+  .stop-line {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+    width: 48px;
+  }
+  .stop-dot {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Unbounded', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    z-index: 1;
+  }
+  .stop-dot.hotel { background: var(--gold); }
+  .stop-dot.transport { background: var(--teal); font-size: 16px; }
+
+  .connector {
+    width: 2px;
+    flex: 1;
+    min-height: 16px;
+    background: repeating-linear-gradient(
+      to bottom,
+      var(--navy) 0px, var(--navy) 4px,
+      transparent 4px, transparent 10px
+    );
+    opacity: 0.15;
+    margin: 4px 0;
+  }
+
+  .stop-content {
+    flex: 1;
+    padding: 0 0 24px 16px;
+  }
+
+  /* STOP CARD */
+  .stop-card {
+    background: white;
+    border-radius: 14px;
+    padding: 18px 20px;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+    border: 1px solid rgba(0,0,0,0.06);
+    transition: box-shadow 0.2s;
+  }
+  .stop-card:hover { box-shadow: 0 6px 24px rgba(0,0,0,0.1); }
+
+  .stop-name-en {
+    font-size: 10.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 3px;
+  }
+  .stop-name-ko {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    line-height: 1.3;
+  }
+
+  .stop-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 12px;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 11.5px;
+    padding: 4px 10px;
+    border-radius: 100px;
+    font-weight: 500;
+  }
+  .tag.time   { background: #FFF3CD; color: #856404; }
+  .tag.move   { background: #E8F4FD; color: #1A6FA8; }
+  .tag.stroller { background: #E8F8F5; color: #1A7A6A; }
+
+  /* INFO BOX */
+  .info-box {
+    margin-top: 12px;
+    border-top: 1px solid #F0F0F0;
+    padding-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  @media (max-width: 500px) {
+    .info-box { grid-template-columns: 1fr 1fr; }
+  }
+
+  .info-cell {
+    background: #F8F9FA;
+    border-radius: 8px;
+    padding: 10px 12px;
+  }
+  .info-cell-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .info-cell-value {
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--navy);
+    line-height: 1.4;
+  }
+  .info-cell-value.free {
+    color: var(--green);
+    font-weight: 700;
+  }
+  .info-cell-value.warn {
+    color: #D97706;
+  }
+  .info-cell.full-width {
+    grid-column: 1 / -1;
+  }
+
+  .stars { color: var(--gold); font-size: 13px; }
+  .star-empty { color: #DDD; }
+
+  /* TRANSPORT BLOCK */
+  .transport-card {
+    background: #F0F9FF;
+    border: 1px solid #BDE0F5;
+    border-radius: 10px;
+    padding: 12px 16px;
+    margin-bottom: 16px;
+  }
+  .transport-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12.5px;
+    color: #1A6FA8;
+    font-weight: 500;
+    flex-wrap: wrap;
+    margin-bottom: 4px;
+  }
+  .transport-row:last-child { margin-bottom: 0; }
+  .transport-row .arrow { color: var(--teal); font-weight: 700; }
+  .transport-total {
+    margin-top: 8px;
+    padding-top: 6px;
+    border-top: 1px dashed #BDE0F5;
+    font-size: 12px;
+    color: #666;
+    font-weight: 500;
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.35);
+    text-align: center;
+    padding: 24px;
+    font-size: 11px;
+    letter-spacing: 1px;
+  }
+  .footer a { color: rgba(255,255,255,0.5); font-size: 10px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">✈ Travel Plan</div>
+  <h1>도쿄<br><span>여행 플랜</span></h1>
+  <div class="header-sub">2025 · Jun 3–6 · 3박 4일</div>
+  <div class="header-meta">
+    <div class="meta-pill">🏨 Hotel Gracery Shinjuku</div>
+    <div class="meta-pill">👶 유모차 동반</div>
+    <div class="meta-pill">📍 신주쿠 베이스</div>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showDay(0)">
+    <span class="day-num">6/3</span><span class="day-label">수 · 공원+돈키</span>
+  </button>
+  <button class="tab-btn" onclick="showDay(1)">
+    <span class="day-num">6/4</span><span class="day-label">목 · 포켓몬</span>
+  </button>
+  <button class="tab-btn" onclick="showDay(2)">
+    <span class="day-num">6/5</span><span class="day-label">금 · 퓨로랜드</span>
+  </button>
+  <button class="tab-btn" onclick="showDay(3)">
+    <span class="day-num">6/6</span><span class="day-label">토 · 출국</span>
+  </button>
+</div>
+
+<div class="main">
+
+  <!-- ===== DAY 1 ===== -->
+  <div class="day-panel active" id="day-0">
+    <div class="day-header">
+      <div class="day-num-big">01</div>
+      <div class="day-title-block">
+        <div class="day-date">June 3, Wed · 도착일</div>
+        <div class="day-title">공원 + 전망대<br>이동 최소화</div>
+        <div class="day-hotel">🏨 Hotel Gracery Shinjuku</div>
+      </div>
+    </div>
+
+    <div class="stop-list">
+
+      <!-- 호텔 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot hotel">🏨</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="stop-card">
+            <div class="stop-name-en">Base Hotel</div>
+            <div class="stop-name-ko">Hotel Gracery Shinjuku</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ① 신주쿠 센트럴파크 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot">①</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="transport-card">
+            <div class="transport-row">🚶 호텔 <span class="arrow">→</span> 신주쿠 센트럴파크 · 도보 15~20분</div>
+          </div>
+          <div class="stop-card">
+            <div class="stop-name-en">Stop ① · Shinjuku Central Park</div>
+            <div class="stop-name-ko">신주쿠 센트럴파크</div>
+            <div class="stop-meta">
+              <span class="tag time">🕒 15:30 – 17:00</span>
+              <span class="tag stroller">🍼 유모차 <span class="stars">★★★★★</span></span>
+            </div>
+            <div class="info-box">
+              <div class="info-cell">
+                <div class="info-cell-label">🕐 운영시간</div>
+                <div class="info-cell-value">24시간 개방</div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">💴 입장료</div>
+                <div class="info-cell-value free">무료</div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">📅 휴무일</div>
+                <div class="info-cell-value">연중무휴</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ② 도쿄도청 전망대 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot">②</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="transport-card">
+            <div class="transport-row">🚶 센트럴파크 <span class="arrow">→</span> 도쿄도청 전망대 · 도보 3~5분</div>
+          </div>
+          <div class="stop-card">
+            <div class="stop-name-en">Stop ② · Tokyo Metropolitan Gov. Building</div>
+            <div class="stop-name-ko">도쿄도청 전망대</div>
+            <div class="stop-meta">
+              <span class="tag time">🕒 17:20 – 18:00</span>
+              <span class="tag move">🏙 지상 202m</span>
+            </div>
+            <div class="info-box">
+              <div class="info-cell">
+                <div class="info-cell-label">🕐 운영시간</div>
+                <div class="info-cell-value">09:30 – 22:00<br><small style="color:#888;font-size:10px;">입장마감 21:30</small></div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">💴 입장료</div>
+                <div class="info-cell-value free">무료</div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">📅 휴무일</div>
+                <div class="info-cell-value warn">매월 1·3번째 화요일<br><small style="font-size:10px;">공휴일이면 다음 평일</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ③ 돈키호테 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot" style="background:#E8334A;">③</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="transport-card">
+            <div class="transport-row">🚶 전망대 <span class="arrow">→</span> 돈키호테 · 도보 15~20분</div>
+          </div>
+          <div class="stop-card" style="border: 2px solid #FFD700; background: linear-gradient(135deg, #fff 0%, #FFFBEA 100%);">
+            <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
+              <div style="background:#E8334A; color:white; font-size:10px; font-weight:800; letter-spacing:1.5px; padding:3px 10px; border-radius:2px; text-transform:uppercase;">⭐ 추천 쇼핑 타이밍</div>
+              <div style="background:#FFD700; color:#333; font-size:10px; font-weight:800; padding:3px 10px; border-radius:2px;">호텔 2~3분 거리</div>
+            </div>
+            <div class="stop-name-en">Stop ③ · Don Quijote Kabukicho</div>
+            <div class="stop-name-ko">돈키호테 신주쿠 가부키초점</div>
+            <div style="font-size:12px; color:#666; margin-bottom:10px; line-height:1.6; padding:8px 10px; background:rgba(232,51,74,0.05); border-left:3px solid var(--red); border-radius:0 6px 6px 0;">
+              💡 <strong>왜 이 타이밍?</strong> 호텔까지 걸어서 2~3분 → 쇼핑 후 짐 바로 체크인, 출국까지 호텔에 보관 가능. 일정 내 가장 짐 부담이 적은 쇼핑 타임.
+            </div>
+            <div class="stop-meta">
+              <span class="tag time">🕒 18:00 – 19:30 (권장)</span>
+              <span class="tag stroller">🍼 유모차 가능</span>
+              <span class="tag move">📍 가부키초 1-16-5</span>
+            </div>
+            <div class="info-box">
+              <div class="info-cell">
+                <div class="info-cell-label">🕐 운영시간</div>
+                <div class="info-cell-value">24시간 연중무휴</div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">💴 면세</div>
+                <div class="info-cell-value">5,500엔 이상<br>소비세 10% 면세<br><small style="color:#888;font-size:10px;">여권 지참 필수</small></div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">🏨 호텔까지</div>
+                <div class="info-cell-value free">도보 2~3분</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 호텔 복귀 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot hotel">🏨</div>
+        </div>
+        <div class="stop-content">
+          <div class="transport-card">
+            <div class="transport-row">🚶 돈키호테 <span class="arrow">→</span> 호텔 · 도보 2~3분</div>
+          </div>
+          <div class="stop-card">
+            <div class="stop-name-en">Return</div>
+            <div class="stop-name-ko">호텔 복귀 · 쇼핑짐 체크인과 함께 보관</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /day-0 -->
+
+
+  <!-- ===== DAY 2 ===== -->
+  <div class="day-panel" id="day-1">
+    <div class="day-header">
+      <div class="day-num-big">02</div>
+      <div class="day-title-block">
+        <div class="day-date">June 4, Thu · 추천 메인</div>
+        <div class="day-title">포켓몬센터 +<br>선샤인 수족관</div>
+        <div class="day-hotel">🏨 Hotel Gracery Shinjuku</div>
+      </div>
+    </div>
+
+    <div class="stop-list">
+
+      <!-- 호텔 출발 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot hotel">🏨</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="stop-card">
+            <div class="stop-name-en">Departure</div>
+            <div class="stop-name-ko">호텔 출발</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ① 포켓몬센터 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot">①</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="transport-card">
+            <div class="transport-row">🚶 호텔 → 신주쿠역 동쪽출구 (10분)</div>
+            <div class="transport-row">🚃 야마노테선 신주쿠 <span class="arrow">→</span> 이케부쿠로 (8분)</div>
+            <div class="transport-row">🚶 이케부쿠로역 → 포켓몬센터 (10~15분)</div>
+            <div class="transport-total">⏱ 총 35~45분</div>
+          </div>
+          <div class="stop-card">
+            <div class="stop-name-en">Stop ① · Pokémon Center Mega Tokyo</div>
+            <div class="stop-name-ko">포켓몬센터 메가 도쿄</div>
+            <div class="stop-meta">
+              <span class="tag time">🕒 10:30 – 12:30</span>
+              <span class="tag move">📍 선샤인시티 알파 2F</span>
+              <span class="tag stroller">🍼 유모차 <span class="stars">★★★★<span class="star-empty">★</span></span></span>
+            </div>
+            <div class="info-box">
+              <div class="info-cell">
+                <div class="info-cell-label">🕐 운영시간</div>
+                <div class="info-cell-value">10:00 – 20:00</div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">💴 입장료</div>
+                <div class="info-cell-value free">무료 (쇼핑)</div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">📅 휴무일</div>
+                <div class="info-cell-value">연중무휴<br><small style="color:#888;font-size:10px;">임시휴무 가능</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ② 선샤인 수족관 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot">②</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="transport-card">
+            <div class="transport-row">🚶 포켓몬센터 <span class="arrow">→</span> 선샤인 수족관 · 도보 8~10분</div>
+            <div class="transport-row" style="color:#888;font-size:11.5px;">같은 선샤인시티 권역 / 월드임포트마트빌딩 옥상(10F)</div>
+          </div>
+          <div class="stop-card">
+            <div class="stop-name-en">Stop ② · Sunshine Aquarium</div>
+            <div class="stop-name-ko">선샤인 수족관</div>
+            <div class="stop-meta">
+              <span class="tag time">🕒 13:30 – 16:00</span>
+              <span class="tag time">🍱 점심 포함</span>
+              <span class="tag move">🐧 천공의 오아시스</span>
+            </div>
+            <div class="info-box">
+              <div class="info-cell">
+                <div class="info-cell-label">🕐 운영시간</div>
+                <div class="info-cell-value">봄·여름 평일<br>10:00–19:00<br><small style="color:#888;font-size:10px;">주말 09:30–20:00</small></div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">💴 입장료</div>
+                <div class="info-cell-value">성인 2,600엔~<br>초·중 1,300엔~<br><small style="color:#888;font-size:10px;">4세~초등미만 800엔~</small></div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">📅 휴무일</div>
+                <div class="info-cell-value">연중무휴<br><small style="color:#888;font-size:10px;">비정기 휴관 있음</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 호텔 복귀 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot hotel">🏨</div>
+        </div>
+        <div class="stop-content">
+          <div class="transport-card">
+            <div class="transport-row">🚶 수족관 → 이케부쿠로역 <span class="arrow">→</span> 🚃 야마노테선 → 신주쿠</div>
+            <div class="transport-total">⏱ 총 35~45분</div>
+          </div>
+          <div class="stop-card">
+            <div class="stop-name-en">Return</div>
+            <div class="stop-name-ko">호텔 복귀</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /day-1 -->
+
+
+  <!-- ===== DAY 3 ===== -->
+  <div class="day-panel" id="day-2">
+    <div class="day-header">
+      <div class="day-num-big">03</div>
+      <div class="day-title-block">
+        <div class="day-date">June 5, Fri</div>
+        <div class="day-title">Sanrio<br>Puroland</div>
+        <div class="day-hotel">🏨 Hotel Gracery Shinjuku</div>
+      </div>
+    </div>
+
+    <div class="stop-list">
+
+      <!-- 출발 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot hotel">🏨</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="stop-card">
+            <div class="stop-name-en">Departure · 08:45 권장</div>
+            <div class="stop-name-ko">호텔 출발</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 이동 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot transport">🚃</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="transport-card">
+            <div class="transport-row">🚶 호텔 → 신주쿠역 (도보 10분)</div>
+            <div class="transport-row">🚃 케이오선 신주쿠 <span class="arrow">→</span> 케이오 타마센터역 (35~40분)</div>
+            <div class="transport-row">🚶 타마센터역 → 퓨로랜드 (도보 5분)</div>
+            <div class="transport-total">⏱ 총 60~70분</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 퓨로랜드 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot">①</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="stop-card">
+            <div class="stop-name-en">Stop · Sanrio Puroland</div>
+            <div class="stop-name-ko">산리오 퓨로랜드</div>
+            <div class="stop-meta">
+              <span class="tag time">🎪 10:00 입장 · 15:30 퇴장</span>
+              <span class="tag stroller">🍼 유모차 <span class="stars">★★★★<span class="star-empty">★</span></span></span>
+              <span class="tag move">🏠 완전 실내 테마파크</span>
+            </div>
+            <div class="info-box">
+              <div class="info-cell">
+                <div class="info-cell-label">🕐 운영시간</div>
+                <div class="info-cell-value">평일 10:00–17:00<br>주말 09:00–17:00<br><small style="color:#888;font-size:10px;">날짜별 상이, 공홈 확인</small></div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">💴 입장료</div>
+                <div class="info-cell-value">성인 3,900–5,900엔<br>어린이(3~17세)<br>2,800–4,800엔<br><small style="color:#888;font-size:10px;">날짜별 변동 · 2세 미만 무료</small></div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">📅 휴무일</div>
+                <div class="info-cell-value warn">매달 2~6일 휴무<br>수·목요일 비정기휴무<br><small style="font-size:10px;">※6/5 개관 여부 반드시 공홈 확인</small></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 복귀 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot hotel">🏨</div>
+        </div>
+        <div class="stop-content">
+          <div class="transport-card">
+            <div class="transport-row">🚃 케이오선 타마센터 <span class="arrow">→</span> 신주쿠 복귀</div>
+            <div class="transport-total">⏱ 총 60~70분</div>
+          </div>
+          <div class="stop-card">
+            <div class="stop-name-en">Return</div>
+            <div class="stop-name-ko">호텔 복귀</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /day-2 -->
+
+
+  <!-- ===== DAY 4 ===== -->
+  <div class="day-panel" id="day-3">
+    <div class="day-header">
+      <div class="day-num-big">04</div>
+      <div class="day-title-block">
+        <div class="day-date">June 6, Sat · 출국일</div>
+        <div class="day-title">하네다 공항<br>점심 + 쇼핑</div>
+        <div class="day-hotel">🏨 체크아웃</div>
+      </div>
+    </div>
+
+    <div class="stop-list">
+
+      <!-- 출발 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot hotel">🏨</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="stop-card">
+            <div class="stop-name-en">Departure · 10:30–11:00 권장</div>
+            <div class="stop-name-ko">호텔 출발 · 체크아웃</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 이동 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot transport">🚃</div>
+          <div class="connector"></div>
+        </div>
+        <div class="stop-content">
+          <div class="transport-card">
+            <div class="transport-row">🚶 호텔 → 신주쿠역 (도보 10분)</div>
+            <div class="transport-row">🚃 JR <span class="arrow">→</span> 도쿄 모노레일 → 하네다공항</div>
+            <div class="transport-total">⏱ 총 60~75분 · 공항 12:00 전후 도착</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 하네다 공항 가든 -->
+      <div class="stop-item">
+        <div class="stop-line">
+          <div class="stop-dot">✈</div>
+        </div>
+        <div class="stop-content">
+          <div class="stop-card">
+            <div class="stop-name-en">Final Stop · Haneda Airport Garden</div>
+            <div class="stop-name-ko">하네다 공항 · 점심 + 쇼핑 + 출국</div>
+            <div class="stop-meta">
+              <span class="tag time">🕛 12:00 전후 도착</span>
+              <span class="tag move">🛍 Haneda Airport Garden</span>
+            </div>
+            <div class="info-box">
+              <div class="info-cell">
+                <div class="info-cell-label">🕐 상점 영업</div>
+                <div class="info-cell-value">07:00 – 21:00<br><small style="color:#888;font-size:10px;">매장별 상이</small></div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">💴 입장료</div>
+                <div class="info-cell-value free">무료</div>
+              </div>
+              <div class="info-cell">
+                <div class="info-cell-label">📅 휴무일</div>
+                <div class="info-cell-value">연중무휴</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div><!-- /day-3 -->
+
+</div><!-- /main -->
+
+<div class="footer">
+  도쿄 여행 플랜 2025 · Jun 3–6 · Hotel Gracery Shinjuku<br>
+  <small>※ 입장요금·운영시간은 변동 가능 · 방문 전 각 시설 공식 홈페이지 확인 권장</small>
+</div>
+
+<script>
+  function showDay(idx) {
+    document.querySelectorAll('.day-panel').forEach((p, i) => p.classList.toggle('active', i === idx));
+    document.querySelectorAll('.tab-btn').forEach((b, i) => b.classList.toggle('active', i === idx));
+  }
+</script>
+</body>
+</html>
